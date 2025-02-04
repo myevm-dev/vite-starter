@@ -8,10 +8,11 @@ interface Choice {
 
 interface ProgressProps {
   onProgressUpdate: (completed: number) => void;
+  onSelectCategory: (category: string | null) => void; // Pass the selected category
 }
 
-export function Progress({ onProgressUpdate }: ProgressProps) {
-  const [selected, setSelected] = useState<string[]>([]);
+export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) {
+  const [selected, setSelected] = useState<string | null>(null);
 
   // Combined Food & Drinks Choices
   const choices: Choice[] = [
@@ -31,17 +32,16 @@ export function Progress({ onProgressUpdate }: ProgressProps) {
   ];
 
   // Handle selection and progress update
-  const handleSelect = (id: string) => {
-    setSelected((prev) => {
-      const newSelection = prev.includes(id)
-        ? prev.filter((item) => item !== id) // Remove if already selected
-        : [...prev, id]; // Add if not selected
+  const handleSelect = (id: string, text: string) => {
+    setSelected((prev) => (prev === id ? null : id)); // Toggle selection
 
-      // Update progress dynamically
-      onProgressUpdate((newSelection.length / choices.length) * 100);
+    if (text === "Appetizers") {
+      onSelectCategory("Appetizers"); // Trigger Appetizer Quiz
+    } else {
+      onSelectCategory(null); // Reset quiz if another category is selected
+    }
 
-      return newSelection;
-    });
+    onProgressUpdate(choices.findIndex((choice) => choice.id === id) / choices.length * 100);
   };
 
   return (
@@ -50,16 +50,14 @@ export function Progress({ onProgressUpdate }: ProgressProps) {
         {choices.map((choice) => (
           <button
             key={choice.id}
-            onClick={() => handleSelect(choice.id)}
+            onClick={() => handleSelect(choice.id, choice.text)}
             className={`flex-grow basis-1/13 px-4 py-2 rounded-lg text-sm text-center transition border-2 border-[#D0733F] ${
-              selected.includes(choice.id)
+              selected === choice.id
                 ? "bg-blue-500 text-white"
                 : "bg-zinc-800 hover:bg-zinc-700"
             }`}
           >
-            <a href={choice.url} className="block w-full whitespace-nowrap">
-              {choice.text}
-            </a>
+            {choice.text}
           </button>
         ))}
       </div>
