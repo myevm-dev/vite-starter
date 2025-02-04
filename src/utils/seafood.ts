@@ -1,0 +1,71 @@
+// seafood.ts
+
+export interface SeafoodDish {
+    item: string;
+    description: string;
+    calories: string;
+    price: number;
+    includesSides: boolean;
+    variations?: { name: string; price: number };
+  }
+  
+  export const seafoodDishes: SeafoodDish[] = [
+    {
+      item: "Grilled Shrimp Alfredo",
+      description:
+        "Penne pasta, broccoli, homemade alfredo with garlic bread.",
+      calories: "1610 cal",
+      price: 14.99,
+      includesSides: false,
+    },
+    {
+      item: "Cornmeal White Fish Platter",
+      description:
+        "Hand-breaded, lightly fried, with tartar sauce.",
+      calories: "1080 cal",
+      price: 13.29,
+      includesSides: true,
+    },
+    {
+      item: "Grilled White Fish",
+      description:
+        "Two white fish fillets grilled with lemon pepper seasoning or blackened over rice.",
+      calories: "490 / 510 cal",
+      price: 13.29,
+      includesSides: true,
+    },
+    {
+      item: "Beer-Battered Shrimp Platter",
+      description:
+        "Eight large, crispy beer-battered shrimp served with cocktail sauce.",
+      calories: "790 cal",
+      price: 14.79,
+      includesSides: true,
+    },
+    {
+      item: "Creamy Garlic Tilapia & Shrimp",
+      description:
+        "Blackened tilapia and shrimp topped with our homemade alfredo sauce over rice.",
+      calories: "600 cal",
+      price: 14.29,
+      includesSides: true,
+    },
+    {
+      item: "Grilled Salmon",
+      description:
+        "Grilled, blackened or bourbon-glazed over rice.",
+      calories: "440 - 750 cal",
+      price: 14.29,
+      includesSides: true,
+      variations: {
+        name: "8 oz Portion",
+        price: 16.29,
+      },
+    },
+  ];
+  
+  export const seafoodAddOns = [
+    { name: "House Salad", price: 3.99 },
+    { name: "Caesar Salad", price: 3.99 },
+  ];
+  
