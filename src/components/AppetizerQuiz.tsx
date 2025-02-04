@@ -18,20 +18,19 @@ export function AppetizerQuiz() {
     generateQuiz();
   }, []);
 
-  // Function to shuffle an array (Fisher-Yates Algorithm)
+  // Function to shuffle an array
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
-  // Generate 10 random questions with mixed question types
+  // Generate 8 random questions
   const generateQuiz = () => {
     const shuffledAppetizers: ShareableAppetizer[] = shuffleArray(shareableAppetizers);
-    
-    const selectedQuestions = shuffledAppetizers.slice(0, 10).map((appetizer, index) => {
-      const isPriceQuestion = index % 2 === 1; // 50% chance for price questions
+
+    const selectedQuestions = shuffledAppetizers.slice(0, 8).map((appetizer, index) => {
+      const isPriceQuestion = index % 2 === 1; // 50% price questions
 
       if (isPriceQuestion) {
-        // Question: "What is the price of [Item]?"
         const correctAnswer = `$${appetizer.price.toFixed(2)}`;
         const incorrectOptions = shuffleArray(
           shareableAppetizers
@@ -45,7 +44,6 @@ export function AppetizerQuiz() {
           options: shuffleArray([...incorrectOptions, correctAnswer]),
         };
       } else {
-        // Question: "Guess the Appetizer" (based on description)
         const correctAnswer = appetizer.item;
         const incorrectOptions = shuffleArray(
           shareableAppetizers
@@ -84,10 +82,10 @@ export function AppetizerQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#c16436] scale-[1.25] text-center">
       {!quizCompleted ? (
         <>
-          <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
+          <h2 className="text-3xl font-bold text-[#c16436] mb-8">
             {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Appetizer"}
           </h2>
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
@@ -96,7 +94,7 @@ export function AppetizerQuiz() {
               <button
                 key={option}
                 onClick={() => handleAnswerClick(option)}
-                className={`p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
+                className={`p-2 text-lg font-semibold rounded-lg transition border-2 border-[#c16436] w-full ${
                   selectedAnswer
                     ? option === quizQuestions[currentQuestionIndex].correctAnswer
                       ? "bg-green-600 border-green-400"
@@ -112,7 +110,7 @@ export function AppetizerQuiz() {
         </>
       ) : (
         <div>
-          <h2 className="text-3xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
+          <h2 className="text-3xl font-bold mb-8 text-[#c16436]">Quiz Completed!</h2>
           <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
           <button
             onClick={generateQuiz}

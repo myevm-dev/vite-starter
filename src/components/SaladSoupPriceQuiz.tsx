@@ -12,55 +12,97 @@ export function SaladSoupQuiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     generateQuiz();
   }, []);
 
-  // Function to shuffle an array
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
-  // Generate 10 random questions with mixed types
   const generateQuiz = () => {
-    const items = [...salads, ...soups];
-    const shuffledItems = shuffleArray(items);
+    const combinedItems = shuffleArray([...salads, ...soups]);
 
-    const selectedQuestions = shuffledItems.slice(0, 10).map((item, index) => {
-      const isPriceQuestion = index % 2 === 1; // 50% chance for price questions
+    let descriptionQuestions: QuizQuestion[] = [];
+    let priceQuestions: QuizQuestion[] = [];
 
-      if (isPriceQuestion) {
-        // Question: "What is the price of [Item]?"
-        const correctAnswer = `$${typeof item.price === "number" ? item.price.toFixed(2) : item.price.bowl.toFixed(2)}`;
-        const incorrectOptions = shuffleArray(
-          items
-            .filter((i) => i.item !== item.item)
-            .map((i) => `$${typeof i.price === "number" ? i.price.toFixed(2) : i.price.bowl.toFixed(2)}`)
-        ).slice(0, 3);
-
-        return {
-          question: `What is the price of "${item.item}"?`,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        };
-      } else {
-        // Question: "Guess the Item" (based on description)
+    // Get exactly 5 description questions
+    for (let item of combinedItems) {
+      if (descriptionQuestions.length < 5) {
         const correctAnswer = item.item;
         const incorrectOptions = shuffleArray(
-          items.filter((i) => i.item !== item.item).map((i) => i.item)
+          combinedItems
+            .filter((i) => i.item !== correctAnswer)
+            .map((i) => i.item)
         ).slice(0, 3);
 
-        return {
+        descriptionQuestions.push({
           question: item.description,
           correctAnswer,
           options: shuffleArray([...incorrectOptions, correctAnswer]),
-        };
-      }
-    });
+        });
 
-    setQuizQuestions(selectedQuestions);
+        if (descriptionQuestions.length === 5) break;
+      }
+    }
+
+    // Get exactly 3 price questions
+    for (let item of combinedItems) {
+      if (priceQuestions.length < 3) {
+        let correctAnswer: string = "";
+        let incorrectOptions: string[] = [];
+
+        if (typeof item.price === "number") {
+          correctAnswer = `$${item.price.toFixed(2)}`;
+
+          if (item.wrongPrices && Array.isArray(item.wrongPrices)) {
+            incorrectOptions = shuffleArray(
+              item.wrongPrices.map((price) => `$${price.toFixed(2)}`)
+            ).slice(0, 3);
+          }
+        } else if (
+          item.price &&
+          typeof item.price === "object" &&
+          "bowl" in item.price &&
+          "cup" in item.price
+        ) {
+          correctAnswer = `Bowl: $${item.price.bowl.toFixed(2)}, Cup: $${item.price.cup.toFixed(2)}`;
+
+          if (
+            item.wrongPrices &&
+            typeof item.wrongPrices === "object" &&
+            "bowl" in item.wrongPrices &&
+            "cup" in item.wrongPrices
+          ) {
+            const bowlPrices = Array.isArray(item.wrongPrices.bowl) ? item.wrongPrices.bowl : [];
+            const cupPrices = Array.isArray(item.wrongPrices.cup) ? item.wrongPrices.cup : [];
+
+            incorrectOptions = shuffleArray(
+              bowlPrices.map(
+                (bowlPrice, index) =>
+                  `Bowl: $${bowlPrice.toFixed(2)}, Cup: $${cupPrices[index]?.toFixed(2) || "?"}`
+              )
+            ).slice(0, 3);
+          }
+        }
+
+        if (correctAnswer !== "" && incorrectOptions.length === 3) {
+          priceQuestions.push({
+            question: `What is the price of "${item.item}"?`,
+            correctAnswer,
+            options: shuffleArray([...incorrectOptions, correctAnswer]),
+          });
+        }
+
+        if (priceQuestions.length === 3) break;
+      }
+    }
+
+    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions]);
+
+    setQuizQuestions(finalQuestions);
     setQuizCompleted(false);
     setScore(0);
     setCurrentQuestionIndex(0);
@@ -87,7 +129,7 @@ export function SaladSoupQuiz() {
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Item"}
+            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Salad or Soup"}
           </h2>
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
           <div className="grid grid-cols-2 gap-6">

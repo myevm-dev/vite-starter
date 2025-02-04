@@ -43,7 +43,7 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
           <button
             key={choice.id}
             onClick={() => handleSelect(choice.id, choice.category)}
-            className={`flex-grow basis-1/13 px-4 py-2 rounded-lg text-sm text-center transition border-2 border-[#D0733F] ${
+            className={`flex-grow basis-1/13 px-4 py-2 rounded-lg text-sm text-center transition border-2 border-[#c16436] ${
               selected === choice.id
                 ? "bg-blue-500 text-white"
                 : "bg-zinc-800 hover:bg-zinc-700"
