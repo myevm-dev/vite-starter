@@ -52,7 +52,7 @@ export function App() {
 function Header() {
   return (
     <header className="flex flex-col items-center mb-10 text-center">
-      <h1 className="text-3xl font-bold">Welcome to My App</h1>
+      <h1 className="text-3xl font-bold">Menu Quiz</h1>
       <p className="text-lg text-zinc-400 mt-2">Select a category to start the quiz</p>
     </header>
   );
