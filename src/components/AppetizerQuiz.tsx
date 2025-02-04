@@ -90,7 +90,7 @@ export function AppetizerQuiz() {
         </>
       ) : (
         <div>
-          <h2 className="text-4xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
+          <h2 className="text-3xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
           <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
           <button
             onClick={generateQuiz}
