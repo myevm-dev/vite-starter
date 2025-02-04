@@ -1,11 +1,10 @@
-// sandwichesAndBurgers.ts
-
 export interface SandwichBurger {
   item: string;
   description: string;
   calories: string;
   price: number;
   includesSides: boolean;
+  wrongPrices?: number[]; // ✅ Added wrong price options
 }
 
 export const sandwichesAndBurgers: SandwichBurger[] = [
@@ -16,6 +15,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1460 cal",
     price: 11.49,
     includesSides: true,
+    wrongPrices: [10.49, 12.29, 13.49] // ✅ Added wrong prices
   },
   {
     item: "Classic Cheeseburger*",
@@ -24,6 +24,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "830 cal",
     price: 9.49,
     includesSides: true,
+    wrongPrices: [8.99, 10.29, 11.49] // ✅ Added wrong prices
   },
   {
     item: "Bacon Cheeseburger*",
@@ -32,6 +33,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1100 cal",
     price: 10.99,
     includesSides: true,
+    wrongPrices: [9.99, 11.49, 12.29] // ✅ Added wrong prices
   },
   {
     item: "Smokehouse Burger*",
@@ -40,6 +42,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1040 cal",
     price: 10.49,
     includesSides: true,
+    wrongPrices: [9.79, 11.29, 12.49] // ✅ Added wrong prices
   },
   {
     item: "Buffalo Chicken Wrapper",
@@ -48,6 +51,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1830 cal",
     price: 11.49,
     includesSides: true,
+    wrongPrices: [10.29, 11.99, 12.79] // ✅ Added wrong prices
   },
 ];
 

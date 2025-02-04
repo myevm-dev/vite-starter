@@ -17,17 +17,17 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
   const choices: Choice[] = [
     { id: "a", text: "Appetizers", category: "Appetizers" },
     { id: "b", text: "Salads & Soup", category: "Salads & Soup" },
-    { id: "c", text: "Chicken", category: null },
-    { id: "d", text: "Comfort Food", category: null },
-    { id: "e", text: "Seafood", category: null },
-    { id: "f", text: "Combinations", category: null },
-    { id: "g", text: "Steaks & Ribs", category: null },
-    { id: "h", text: "Sandwiches & Burgers", category: null },
-    { id: "i", text: "Kids", category: null },
-    { id: "j", text: "Beverages", category: null },
-    { id: "k", text: "Cocktails", category: null },
-    { id: "l", text: "Beers", category: null },
-    { id: "m", text: "Wines", category: null },
+    { id: "c", text: "Chicken", category: "Chicken" },
+    { id: "d", text: "Comfort Food", category: "Comfort Food" },
+    { id: "e", text: "Seafood", category: "Seafood" },
+    { id: "f", text: "Combinations", category: "Combinations" },
+    { id: "g", text: "Steaks & Ribs", category: "Steaks & Ribs" },
+    { id: "h", text: "Sandwiches & Burgers", category: "Sandwiches & Burgers" },
+    { id: "i", text: "Kids", category: "Kids" },
+    { id: "j", text: "Beverages", category: null }, // Not yet implemented
+    { id: "k", text: "Cocktails", category: null }, // Not yet implemented
+    { id: "l", text: "Beers", category: null }, // Not yet implemented
+    { id: "m", text: "Wines", category: null }, // Not yet implemented
   ];
 
   const handleSelect = (id: string, category: string | null) => {
@@ -44,9 +44,7 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
             key={choice.id}
             onClick={() => handleSelect(choice.id, choice.category)}
             className={`flex-grow basis-1/13 px-4 py-2 rounded-lg text-sm text-center transition border-2 border-[#c16436] ${
-              selected === choice.id
-                ? "bg-blue-500 text-white"
-                : "bg-zinc-800 hover:bg-zinc-700"
+              selected === choice.id ? "bg-blue-500 text-white" : "bg-zinc-800 hover:bg-zinc-700"
             }`}
           >
             {choice.text}
