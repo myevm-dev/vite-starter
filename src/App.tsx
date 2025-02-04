@@ -9,20 +9,20 @@ import { SeafoodQuiz } from "./components/SeafoodQuiz";
 import { CombinationsQuiz } from "./components/CombinationsQuiz";
 import { SteakAndRibsQuiz } from "./components/SteakAndRibsQuiz";
 import { SandwichesAndBurgersQuiz } from "./components/SandwichesAndBurgersQuiz";
-import { KidsQuiz } from "./components/KidsQuiz"; // ✅ Added Kids Quiz
+import { KidsQuiz } from "./components/KidsQuiz";
 
 export function App() {
   const [progress, setProgress] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
-    <main className="pt-24 p-4 pb-10 min-h-[100vh] flex flex-col items-center justify-center container max-w-screen-lg mx-auto">
+    <main className="pt-24 px-4 pb-10 min-h-screen flex flex-col items-center justify-center container max-w-screen-lg mx-auto">
       <Navbar />
-      
-      {/* Progress Bar with Category Selection */}
+
+      {/* Progress Dropdown for Mobile */}
       <Progress onProgressUpdate={setProgress} onSelectCategory={setSelectedCategory} />
 
-      <div className="py-20">
+      <div className="py-10 w-full flex flex-col items-center">
         {selectedCategory === "Appetizers" ? (
           <AppetizerQuiz />
         ) : selectedCategory === "Salads & Soup" ? (
@@ -40,7 +40,7 @@ export function App() {
         ) : selectedCategory === "Sandwiches & Burgers" ? (
           <SandwichesAndBurgersQuiz />
         ) : selectedCategory === "Kids" ? (
-          <KidsQuiz /> // ✅ Kids Quiz now included!
+          <KidsQuiz />
         ) : (
           <Header />
         )}
@@ -51,8 +51,9 @@ export function App() {
 
 function Header() {
   return (
-    <header className="flex flex-col items-center mb-20 md:mb-20">
+    <header className="flex flex-col items-center mb-10 text-center">
       <h1 className="text-3xl font-bold">Welcome to My App</h1>
+      <p className="text-lg text-zinc-400 mt-2">Select a category to start the quiz</p>
     </header>
   );
 }
