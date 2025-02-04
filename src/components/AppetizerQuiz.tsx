@@ -18,27 +18,49 @@ export function AppetizerQuiz() {
     generateQuiz();
   }, []);
 
-  // Function to shuffle an array
+  // Function to shuffle an array (Fisher-Yates Algorithm)
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
-  // Generate 5 random questions
+  // Generate 10 random questions with mixed question types
   const generateQuiz = () => {
     const shuffledAppetizers: ShareableAppetizer[] = shuffleArray(shareableAppetizers);
-    const selectedQuestions = shuffledAppetizers.slice(0, 5).map((appetizer) => {
-      const correctAnswer = appetizer.item;
-      const incorrectOptions = shuffleArray(
-        shareableAppetizers
-          .filter((a) => a.item !== correctAnswer)
-          .map((a) => a.item)
-      ).slice(0, 3);
-      return {
-        question: appetizer.description,
-        correctAnswer,
-        options: shuffleArray([...incorrectOptions, correctAnswer]),
-      };
+    
+    const selectedQuestions = shuffledAppetizers.slice(0, 10).map((appetizer, index) => {
+      const isPriceQuestion = index % 2 === 1; // 50% chance for price questions
+
+      if (isPriceQuestion) {
+        // Question: "What is the price of [Item]?"
+        const correctAnswer = `$${appetizer.price.toFixed(2)}`;
+        const incorrectOptions = shuffleArray(
+          shareableAppetizers
+            .filter((a) => a.item !== appetizer.item)
+            .map((a) => `$${a.price.toFixed(2)}`)
+        ).slice(0, 3);
+
+        return {
+          question: `What is the price of "${appetizer.item}"?`,
+          correctAnswer,
+          options: shuffleArray([...incorrectOptions, correctAnswer]),
+        };
+      } else {
+        // Question: "Guess the Appetizer" (based on description)
+        const correctAnswer = appetizer.item;
+        const incorrectOptions = shuffleArray(
+          shareableAppetizers
+            .filter((a) => a.item !== correctAnswer)
+            .map((a) => a.item)
+        ).slice(0, 3);
+
+        return {
+          question: appetizer.description,
+          correctAnswer,
+          options: shuffleArray([...incorrectOptions, correctAnswer]),
+        };
+      }
     });
+
     setQuizQuestions(selectedQuestions);
     setQuizCompleted(false);
     setScore(0);
@@ -66,7 +88,7 @@ export function AppetizerQuiz() {
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            Guess the Appetizer
+            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Appetizer"}
           </h2>
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
           <div className="grid grid-cols-2 gap-6">
