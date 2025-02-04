@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Navbar } from "./components/Navbar";
-import { MultipleChoice } from "./components/MultipleChoice";
+import { Progress } from "./components/Progress";
 
 export function App() {
-  const [quizType, setQuizType] = useState<"food" | "drink">("food");
+  const [progress, setProgress] = useState<number>(0);
 
   return (
-    <main className="pt-20 p-4 pb-10 min-h-[100vh] flex flex-col items-center justify-center container max-w-screen-lg mx-auto">
-      <Navbar setQuizType={setQuizType} quizType={quizType} />
+    <main className="pt-24 p-4 pb-10 min-h-[100vh] flex flex-col items-center justify-center container max-w-screen-lg mx-auto">
+      <Navbar />
+      
+      {/* Call Progress WITHOUT a type prop */}
+      <Progress onProgressUpdate={setProgress} />
+
       <div className="py-20">
         <Header />
-        <MultipleChoice type={quizType} />
       </div>
     </main>
   );
