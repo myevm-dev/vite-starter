@@ -18,7 +18,7 @@ export function AppetizerQuiz() {
     generateQuiz();
   }, []);
 
-  // Function to shuffle an array (Fisher-Yates Algorithm)
+  // Function to shuffle an array
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
@@ -30,16 +30,20 @@ export function AppetizerQuiz() {
       const correctAnswer = appetizer.item;
       const incorrectOptions = shuffleArray(
         shareableAppetizers
-          .filter((a) => a.item !== correctAnswer) // Exclude correct answer
-          .map((a) => a.item) // Get only item names
-      ).slice(0, 3); // Pick 3 incorrect answers
+          .filter((a) => a.item !== correctAnswer)
+          .map((a) => a.item)
+      ).slice(0, 3);
       return {
-        question: appetizer.description, // ✅ Fix: Now correctly using description
+        question: appetizer.description,
         correctAnswer,
-        options: shuffleArray([...incorrectOptions, correctAnswer]), // ✅ Ensures correct answer is included
+        options: shuffleArray([...incorrectOptions, correctAnswer]),
       };
     });
     setQuizQuestions(selectedQuestions);
+    setQuizCompleted(false);
+    setScore(0);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
   };
 
   const handleAnswerClick = (answer: string) => {
@@ -58,21 +62,23 @@ export function AppetizerQuiz() {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-6 bg-zinc-900 text-white rounded-lg shadow-lg">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.25] text-center">
       {!quizCompleted ? (
         <>
-          <h2 className="text-xl font-bold mb-4">Guess the Appetizer</h2>
-          <p className="text-md mb-4">{quizQuestions[currentQuestionIndex]?.question}</p>
-          <div className="grid grid-cols-2 gap-2">
+          <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
+            Guess the Appetizer
+          </h2>
+          <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
+          <div className="grid grid-cols-2 gap-6">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
                 key={option}
                 onClick={() => handleAnswerClick(option)}
-                className={`p-2 rounded-lg transition text-white ${
+                className={`p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
                   selectedAnswer
                     ? option === quizQuestions[currentQuestionIndex].correctAnswer
-                      ? "bg-green-500"
-                      : "bg-red-500"
+                      ? "bg-green-600 border-green-400"
+                      : "bg-red-600 border-red-400"
                     : "bg-zinc-800 hover:bg-zinc-700"
                 }`}
                 disabled={!!selectedAnswer}
@@ -84,11 +90,11 @@ export function AppetizerQuiz() {
         </>
       ) : (
         <div>
-          <h2 className="text-2xl font-bold mb-4">Quiz Completed!</h2>
-          <p className="text-lg">Your Score: {score} / {quizQuestions.length}</p>
+          <h2 className="text-4xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
+          <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
           <button
             onClick={generateQuiz}
-            className="mt-4 p-3 bg-blue-500 rounded-lg text-white hover:bg-blue-700"
+            className="px-6 py-4 bg-blue-500 rounded-lg text-white text-xl font-semibold hover:bg-blue-700"
           >
             Play Again
           </button>

@@ -8,13 +8,12 @@ interface Choice {
 
 interface ProgressProps {
   onProgressUpdate: (completed: number) => void;
-  onSelectCategory: (category: string | null) => void; // Pass the selected category
+  onSelectCategory: (category: string | null) => void; // ✅ Ensure we notify App.tsx
 }
 
 export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) {
   const [selected, setSelected] = useState<string | null>(null);
 
-  // Combined Food & Drinks Choices
   const choices: Choice[] = [
     { id: "a", text: "Appetizers", url: "/food/appetizers" },
     { id: "b", text: "Salads & Soup", url: "/food/salads" },
@@ -31,14 +30,13 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
     { id: "m", text: "Wines", url: "/drinks/wines" },
   ];
 
-  // Handle selection and progress update
   const handleSelect = (id: string, text: string) => {
-    setSelected((prev) => (prev === id ? null : id)); // Toggle selection
+    setSelected((prev) => (prev === id ? null : id));
 
     if (text === "Appetizers") {
-      onSelectCategory("Appetizers"); // Trigger Appetizer Quiz
+      onSelectCategory("Appetizers"); // ✅ Triggers Appetizer Quiz
     } else {
-      onSelectCategory(null); // Reset quiz if another category is selected
+      onSelectCategory(null); // ✅ Hides quiz when selecting other categories
     }
 
     onProgressUpdate(choices.findIndex((choice) => choice.id === id) / choices.length * 100);
