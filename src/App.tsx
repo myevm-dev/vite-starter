@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { Progress } from "./components/Progress";
-import { AppetizerQuiz } from "./components/AppetizerQuiz"; // ✅ Ensure this is imported
+import { AppetizerQuiz } from "./components/AppetizerQuiz";
+import { SaladSoupQuiz } from "./components/SaladSoupPriceQuiz";
 
 export function App() {
   const [progress, setProgress] = useState<number>(0);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // ✅ Track selected category
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <main className="pt-24 p-4 pb-10 min-h-[100vh] flex flex-col items-center justify-center container max-w-screen-lg mx-auto">
@@ -16,7 +17,9 @@ export function App() {
 
       <div className="py-20">
         {selectedCategory === "Appetizers" ? (
-          <AppetizerQuiz /> // ✅ This should now display when "Appetizers" is selected
+          <AppetizerQuiz />
+        ) : selectedCategory === "Salads & Soup" ? (
+          <SaladSoupQuiz /> // ✅ Now shows Salad & Soup Quiz dynamically
         ) : (
           <Header />
         )}
