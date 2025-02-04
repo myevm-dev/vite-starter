@@ -125,19 +125,23 @@ export function SaladSoupQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Salad or Soup"}
+            {quizQuestions[currentQuestionIndex]?.question.includes("price") 
+              ? "How Much Does It Cost?" 
+              : "Guess the Salad or Soup"}
           </h2>
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
-          <div className="grid grid-cols-2 gap-6">
+
+          {/* ✅ Responsive Answer Layout (List on Mobile, Grid on Larger Screens) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
                 key={option}
                 onClick={() => handleAnswerClick(option)}
-                className={`p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
+                className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
                   selectedAnswer
                     ? option === quizQuestions[currentQuestionIndex].correctAnswer
                       ? "bg-green-600 border-green-400"
@@ -154,7 +158,9 @@ export function SaladSoupQuiz() {
       ) : (
         <div>
           <h2 className="text-3xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
-          <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
+          <p className="text-2xl mb-6">
+            Your Score: {score} / {quizQuestions.length}
+          </p>
           <button
             onClick={generateQuiz}
             className="px-6 py-4 bg-blue-500 rounded-lg text-white text-xl font-semibold hover:bg-blue-700"

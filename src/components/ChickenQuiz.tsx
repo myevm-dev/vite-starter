@@ -12,7 +12,7 @@ export function ChickenQuiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   useEffect(() => {
     generateQuiz();
@@ -95,19 +95,21 @@ export function ChickenQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
             {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Chicken Dish"}
           </h2>
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
-          <div className="grid grid-cols-2 gap-6">
+
+          {/* ✅ Responsive Answer Layout (List on Mobile, Grid on Larger Screens) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
                 key={option}
                 onClick={() => handleAnswerClick(option)}
-                className={`p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
+                className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition border-2 border-[#D0733F] w-full ${
                   selectedAnswer
                     ? option === quizQuestions[currentQuestionIndex].correctAnswer
                       ? "bg-green-600 border-green-400"
