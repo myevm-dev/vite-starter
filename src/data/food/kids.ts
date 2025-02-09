@@ -4,7 +4,10 @@ export interface KidsMeal {
   calories: string;
   price: number;
   includesSide: boolean;
-  wrongPrices?: number[]; // ✅ Added wrong price options
+  img: string;
+  wrongPrices?: number[];
+  upsells?: any[];
+  orderqs?: any[];
 }
 
 export const kidsMeals: KidsMeal[] = [
@@ -14,7 +17,10 @@ export const kidsMeals: KidsMeal[] = [
       calories: "630 cal",
       price: 6.49,
       includesSide: true,
-      wrongPrices: [5.99, 6.99, 7.49] // ✅ Added wrong prices
+      img: "/public/menu-kids-chicken-tenders.jpg",
+      wrongPrices: [5.99, 6.99, 7.49],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Junior Burger",
@@ -22,7 +28,21 @@ export const kidsMeals: KidsMeal[] = [
       calories: "450 / 520 cal",
       price: 6.49,
       includesSide: true,
-      wrongPrices: [5.49, 6.99, 7.29] // ✅ Added wrong prices
+      img: "/public/menu-kids-hamburger.jpg",
+      wrongPrices: [5.49, 6.99, 7.29],
+      upsells: [],
+      orderqs: []
+  },
+  {
+    item: "Grilled Chicken Alfredo",
+    description: "Penne pasta and chicken with homemade alfredo sauce. Served with garlic bread..",
+    calories: "870 cal",
+    price: 6.49,
+    includesSide: true,
+    img: "/public/KidsGrilledChicAlfredo_856x517.jpg",
+    wrongPrices: [5.49, 6.99, 7.29],
+    upsells: [],
+    orderqs: []
   },
   {
       item: "Fried Shrimp",
@@ -30,7 +50,10 @@ export const kidsMeals: KidsMeal[] = [
       calories: "410 cal",
       price: 6.49,
       includesSide: true,
-      wrongPrices: [5.79, 6.99, 7.49] // ✅ Added wrong prices
+      img: "/public/Shrimp_KidsMeal_Hero590x365.jpg",
+      wrongPrices: [5.79, 6.99, 7.49],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Grilled Cheese",
@@ -38,7 +61,10 @@ export const kidsMeals: KidsMeal[] = [
       calories: "420 cal",
       price: 5.49,
       includesSide: true,
-      wrongPrices: [4.99, 5.99, 6.49] // ✅ Added wrong prices
+      img: "/public/menu-kids-grilled-cheese.jpg",
+      wrongPrices: [4.99, 5.99, 6.49],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Penne Pasta",
@@ -46,7 +72,10 @@ export const kidsMeals: KidsMeal[] = [
       calories: "700 / 490 cal",
       price: 5.49,
       includesSide: false,
-      wrongPrices: [4.49, 5.99, 6.29] // ✅ Added wrong prices
+      img: "/public/Cheddars_May23_KidsPennePasta_856x517.jpg",
+      wrongPrices: [4.49, 5.99, 6.29],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Grilled Chicken",
@@ -54,12 +83,15 @@ export const kidsMeals: KidsMeal[] = [
       calories: "280 / 390 cal",
       price: 6.49,
       includesSide: true,
-      wrongPrices: [5.99, 6.99, 7.49] // ✅ Added wrong prices
-  },
+      img: "/public/menu-kids-grilled-chicken.jpg",
+      wrongPrices: [5.99, 6.99, 7.49],
+      upsells: [],
+      orderqs: []
+  }
 ];
 
 export const kidsMealDrinks = [
   { name: "Milk", calories: "0 - 120 cal" },
   { name: "Apple Juice", calories: "Varies" },
-  { name: "Soft Drinks", calories: "Varies" },
+  { name: "Soft Drinks", calories: "Varies" }
 ];

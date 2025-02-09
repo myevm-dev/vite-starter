@@ -4,8 +4,11 @@ export interface CombinationDish {
   calories: string;
   price: number;
   includesSides: boolean;
+  img: string;
   upgradeOptions?: { name: string; price: number; calories: number };
-  wrongPrices?: number[]; // ✅ Added wrong price options
+  wrongPrices?: number[];
+  upsells?: any[];
+  orderqs?: any[];
 }
 
 export const combinationDishes: CombinationDish[] = [
@@ -15,7 +18,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "1120 / 1460 cal",
       price: 15.49,
       includesSides: true,
-      wrongPrices: [13.99, 14.29, 16.99] // ✅ Added wrong prices
+      img: "/public/Shrimp_Tenders_Combo_Hero590x365.jpg",
+      wrongPrices: [13.99, 14.29, 16.99],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Ribs & Chicken Tenders",
@@ -23,7 +29,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "1540 cal",
       price: 19.49,
       includesSides: true,
-      wrongPrices: [17.99, 18.29, 20.99] // ✅ Added wrong prices
+      img: "/public/Cheddars_RibsTendersCombo_0522.jpg",
+      wrongPrices: [17.99, 18.29, 20.99],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Ribs & Shrimp",
@@ -31,7 +40,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "1120 / 1230 cal",
       price: 19.49,
       includesSides: true,
-      wrongPrices: [17.79, 18.49, 21.49] // ✅ Added wrong prices
+      img: "/public/Ribs_Shrimp_Combo_Hero590x365.jpg",
+      wrongPrices: [17.79, 18.49, 21.49],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Top Sirloin Steak* & Shrimp",
@@ -39,7 +51,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "560 / 670 cal",
       price: 18.29,
       includesSides: true,
-      wrongPrices: [16.49, 17.29, 19.99] // ✅ Added wrong prices
+      img: "/public/ShrimpSteak_Hero_Updated_(1)856x517.jpg",
+      wrongPrices: [16.49, 17.29, 19.99],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Top Sirloin Steak* & Ribs",
@@ -47,7 +62,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "1070 cal",
       price: 20.49,
       includesSides: true,
-      wrongPrices: [18.99, 19.29, 21.99] // ✅ Added wrong prices
+      img: "/public/Steak_and_Ribs_Combo_WEB.jpg",
+      wrongPrices: [18.99, 19.29, 21.99],
+      upsells: [],
+      orderqs: []
   },
   {
       item: "Top Sirloin Steak* & Chicken Tenders",
@@ -55,7 +73,10 @@ export const combinationDishes: CombinationDish[] = [
       calories: "980 cal",
       price: 18.29,
       includesSides: true,
-      wrongPrices: [16.49, 17.79, 19.49] // ✅ Added wrong prices
+      img: "/public/Cheddars_Q224_May_SorloinSteakNTenders_856x51.jpg",
+      wrongPrices: [16.49, 17.79, 19.49],
+      upsells: [],
+      orderqs: []
   },
 ];
 
