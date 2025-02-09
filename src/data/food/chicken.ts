@@ -68,8 +68,3 @@ export const chickenDishes: ChickenDish[] = [
       orderqs: []
   },
 ];
-
-export const chickenAddOns = [
-  { name: "House Salad", price: 3.99 },
-  { name: "Caesar Salad", price: 3.99 },
-];

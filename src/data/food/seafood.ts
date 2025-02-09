@@ -90,8 +90,3 @@ export interface SeafoodDish {
     }
   ];
   
-  export const seafoodAddOns = [
-    { name: "House Salad", price: 3.99 },
-    { name: "Caesar Salad", price: 3.99 },
-  ];
-  

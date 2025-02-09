@@ -75,8 +75,3 @@ export interface SteakRibsDish {
     }
   ];
   
-  export const steakAndRibsAddOns = [
-    { name: "House Salad", price: 3.99 },
-    { name: "Caesar Salad", price: 3.99 },
-    { name: "Sautéed Mushrooms", calories: 100, price: 0.99 }
-  ];

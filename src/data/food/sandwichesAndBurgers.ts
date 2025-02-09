@@ -72,9 +72,3 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     orderqs: []
   }
 ];
-
-export const sandwichesAndBurgersAddOns = [
-  { name: "Sautéed Mushrooms", calories: 100, price: 0.99 },
-  { name: "House Salad", price: 3.99 },
-  { name: "Caesar Salad", price: 3.99 }
-];

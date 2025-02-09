@@ -79,12 +79,3 @@ export const combinationDishes: CombinationDish[] = [
       orderqs: []
   },
 ];
-
-export const combinationUpgrades = [
-  { name: "Upgrade to 8 oz. Sirloin*", price: 2.00, calories: 80 },
-];
-
-export const combinationAddOns = [
-  { name: "House Salad", price: 3.99 },
-  { name: "Caesar Salad", price: 3.99 },
-];

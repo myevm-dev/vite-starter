@@ -89,9 +89,3 @@ export const kidsMeals: KidsMeal[] = [
       orderqs: []
   }
 ];
-
-export const kidsMealDrinks = [
-  { name: "Milk", calories: "0 - 120 cal" },
-  { name: "Apple Juice", calories: "Varies" },
-  { name: "Soft Drinks", calories: "Varies" }
-];
