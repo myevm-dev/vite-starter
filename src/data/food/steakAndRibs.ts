@@ -23,17 +23,7 @@ export interface SteakRibsDish {
         upsells: [],
         orderqs: []
     },
-    {
-        item: "8 oz. Fire Grilled Sirloin Steak*",
-        description: "Center-cut top 8oz sirloin, grilled over an open flame.",
-        calories: "330 cal",
-        price: 14.99,
-        includesSides: true,
-        img: "/public/chargrill-8oz-sirloin-590x365.jpg",
-        wrongPrices: [13.49, 15.49, 16.79],
-        upsells: [],
-        orderqs: []
-    },
+
     {
         item: "14 oz. Ribeye*",
         description: "Our most juicy and flavorful steak, grilled over an open flame.",
