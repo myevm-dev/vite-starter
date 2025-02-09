@@ -25,7 +25,7 @@ export interface SteakRibsDish {
     },
     {
         item: "8 oz. Fire Grilled Sirloin Steak*",
-        description: "Center-cut top 9oz sirloin, grilled over an open flame.",
+        description: "Center-cut top 8oz sirloin, grilled over an open flame.",
         calories: "330 cal",
         price: 14.99,
         includesSides: true,
