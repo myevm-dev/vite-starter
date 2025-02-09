@@ -18,7 +18,7 @@ export interface SteakRibsDish {
         calories: "250 cal",
         price: 12.99,
         includesSides: true,
-        img: "/public/chargrill-8oz-sirloin-590x365.jpg",
+        img: "/chargrill-8oz-sirloin-590x365.jpg",
         wrongPrices: [11.49, 13.79, 14.29],
         upsells: [],
         orderqs: []
