@@ -40,7 +40,7 @@ export interface SteakRibsDish {
         calories: "890 cal",
         price: 20.99,
         includesSides: true,
-        img: "/public/chargrill-14oz-ribeye-590x365.jpg",
+        img: "/chargrill-14oz-ribeye-590x365.jpg",
         wrongPrices: [18.99, 21.49, 22.79],
         upsells: [],
         orderqs: []
@@ -52,7 +52,7 @@ export interface SteakRibsDish {
         calories: "480 cal",
         price: 20.99,
         includesSides: true,
-        img: "/public/Cheddars_7Oz_Filet_590x365.jpg",
+        img: "/Cheddars_7Oz_Filet_590x365.jpg",
         wrongPrices: [19.29, 21.49, 22.99],
         upsells: [],
         orderqs: []
@@ -64,7 +64,7 @@ export interface SteakRibsDish {
         calories: "1630 / 810 cal",
         price: 20.49,
         includesSides: true,
-        img: "/public/chargrilled-ribs-full-rack-590x365.jpg",
+        img: "/chargrilled-ribs-full-rack-590x365.jpg",
         variations: {
             name: "Half Rack",
             price: 15.49,

@@ -17,7 +17,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "630 cal",
       price: 6.49,
       includesSide: true,
-      img: "/public/menu-kids-chicken-tenders.jpg",
+      img: "/menu-kids-chicken-tenders.jpg",
       wrongPrices: [5.99, 6.99, 7.49],
       upsells: [],
       orderqs: []
@@ -28,7 +28,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "450 / 520 cal",
       price: 6.49,
       includesSide: true,
-      img: "/public/menu-kids-hamburger.jpg",
+      img: "/menu-kids-hamburger.jpg",
       wrongPrices: [5.49, 6.99, 7.29],
       upsells: [],
       orderqs: []
@@ -39,7 +39,7 @@ export const kidsMeals: KidsMeal[] = [
     calories: "870 cal",
     price: 6.49,
     includesSide: true,
-    img: "/public/KidsGrilledChicAlfredo_856x517.jpg",
+    img: "/KidsGrilledChicAlfredo_856x517.jpg",
     wrongPrices: [5.49, 6.99, 7.29],
     upsells: [],
     orderqs: []
@@ -50,7 +50,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "410 cal",
       price: 6.49,
       includesSide: true,
-      img: "/public/Shrimp_KidsMeal_Hero590x365.jpg",
+      img: "/Shrimp_KidsMeal_Hero590x365.jpg",
       wrongPrices: [5.79, 6.99, 7.49],
       upsells: [],
       orderqs: []
@@ -61,7 +61,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "420 cal",
       price: 5.49,
       includesSide: true,
-      img: "/public/menu-kids-grilled-cheese.jpg",
+      img: "/menu-kids-grilled-cheese.jpg",
       wrongPrices: [4.99, 5.99, 6.49],
       upsells: [],
       orderqs: []
@@ -72,7 +72,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "700 / 490 cal",
       price: 5.49,
       includesSide: false,
-      img: "/public/Cheddars_May23_KidsPennePasta_856x517.jpg",
+      img: "/Cheddars_May23_KidsPennePasta_856x517.jpg",
       wrongPrices: [4.49, 5.99, 6.29],
       upsells: [],
       orderqs: []
@@ -83,7 +83,7 @@ export const kidsMeals: KidsMeal[] = [
       calories: "280 / 390 cal",
       price: 6.49,
       includesSide: true,
-      img: "/public/menu-kids-grilled-chicken.jpg",
+      img: "/menu-kids-grilled-chicken.jpg",
       wrongPrices: [5.99, 6.99, 7.49],
       upsells: [],
       orderqs: []

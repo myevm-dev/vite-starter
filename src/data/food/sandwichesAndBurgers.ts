@@ -18,7 +18,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1460 cal",
     price: 11.49,
     includesSides: true,
-    img: "/public/monte-cristo.jpg",
+    img: "/monte-cristo.jpg",
     wrongPrices: [10.49, 12.29, 13.49],
     upsells: [],
     orderqs: []
@@ -30,7 +30,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "830 cal",
     price: 9.49,
     includesSides: true,
-    img: "/public/Burger_ClassicBurger_wCheeseEdit_Updated_(1)8.jpg",
+    img: "/Burger_ClassicBurger_wCheeseEdit_Updated_(1)8.jpg",
     wrongPrices: [8.99, 10.29, 11.49],
     upsells: [],
     orderqs: []
@@ -42,7 +42,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1100 cal",
     price: 10.99,
     includesSides: true,
-    img: "/public/Burger_BaconCheeeburger_Hero_Updated 590.jpg",
+    img: "/Burger_BaconCheeeburger_Hero_Updated 590.jpg",
     wrongPrices: [9.99, 11.49, 12.29],
     upsells: [],
     orderqs: []
@@ -54,7 +54,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1040 cal",
     price: 10.49,
     includesSides: true,
-    img: "/public/smokehouse-burger-grilled-onions.jpg",
+    img: "/smokehouse-burger-grilled-onions.jpg",
     wrongPrices: [9.79, 11.29, 12.49],
     upsells: [],
     orderqs: []
@@ -66,7 +66,7 @@ export const sandwichesAndBurgers: SandwichBurger[] = [
     calories: "1830 cal",
     price: 11.49,
     includesSides: true,
-    img: "/public/Cheddars_Q223_June_BuffChicWrap_NoBG_590x365.jpg",
+    img: "/Cheddars_Q223_June_BuffChicWrap_NoBG_590x365.jpg",
     wrongPrices: [10.29, 11.99, 12.79],
     upsells: [],
     orderqs: []

@@ -19,7 +19,7 @@ export interface SeafoodDish {
         calories: "1610 cal",
         price: 14.99,
         includesSides: false,
-        img: "/public/ShrimpPasta_Hero_(1)856x517.jpg",
+        img: "/ShrimpPasta_Hero_(1)856x517.jpg",
         wrongPrices: [13.49, 15.49, 16.29],
         upsells: [],
         orderqs: []
@@ -31,7 +31,7 @@ export interface SeafoodDish {
         calories: "1080 cal",
         price: 13.29,
         includesSides: true,
-        img: "/public/cornmeal-whitefish.jpg",
+        img: "/cornmeal-whitefish.jpg",
         wrongPrices: [11.99, 13.79, 14.49],
         upsells: [],
         orderqs: []
@@ -43,7 +43,7 @@ export interface SeafoodDish {
         calories: "490 / 510 cal",
         price: 13.29,
         includesSides: true,
-        img: "/public/091624_GrilledWhiteFish_Dinner_Hero.jpg",
+        img: "/091624_GrilledWhiteFish_Dinner_Hero.jpg",
         wrongPrices: [12.49, 13.99, 14.79],
         upsells: [],
         orderqs: []
@@ -55,7 +55,7 @@ export interface SeafoodDish {
         calories: "790 cal",
         price: 14.79,
         includesSides: true,
-        img: "/public/Shrimp_Platter_Hero590x365.jpg",
+        img: "/Shrimp_Platter_Hero590x365.jpg",
         wrongPrices: [13.49, 15.29, 16.49],
         upsells: [],
         orderqs: []
@@ -67,7 +67,7 @@ export interface SeafoodDish {
         calories: "600 cal",
         price: 14.29,
         includesSides: true,
-        img: "/public/091624_June_CreamyGarlicTilapiaShrimp_Hero.jpg",
+        img: "/091624_June_CreamyGarlicTilapiaShrimp_Hero.jpg",
         wrongPrices: [13.29, 14.99, 15.79],
         upsells: [],
         orderqs: []
@@ -79,7 +79,7 @@ export interface SeafoodDish {
         calories: "440 - 750 cal",
         price: 14.29,
         includesSides: true,
-        img: "/public/Grilled_Salmon_0715.jpg",
+        img: "/Grilled_Salmon_0715.jpg",
         variations: {
             name: "8 oz Portion",
             price: 16.29,
