@@ -5,6 +5,7 @@ interface QuizQuestion {
   question: string;
   correctAnswer: string;
   options: string[];
+  img?: string;
 }
 
 export function CombinationsQuiz() {
@@ -12,7 +13,7 @@ export function CombinationsQuiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   useEffect(() => {
     generateQuiz();
@@ -23,61 +24,56 @@ export function CombinationsQuiz() {
   };
 
   const generateQuiz = () => {
-    const shuffledCombinations = shuffleArray(combinationDishes);
-    const shuffledForPrice = shuffleArray(combinationDishes);
+    let shuffledCombinations: CombinationDish[] = shuffleArray(combinationDishes);
 
-    let descriptionQuestions: QuizQuestion[] = [];
-    let priceQuestions: QuizQuestion[] = [];
-
-    // Generate 5 description-based questions
-    for (let dish of shuffledCombinations) {
-      if (descriptionQuestions.length < 5) {
-        const correctAnswer = dish.item;
-        const incorrectOptions = shuffleArray(
-          combinationDishes
-            .filter((d) => d.item !== correctAnswer)
-            .map((d) => d.item)
-        ).slice(0, 3);
-
-        descriptionQuestions.push({
-          question: dish.description,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
-
-        if (descriptionQuestions.length === 5) break;
-      }
+    while (shuffledCombinations.length < 8) {
+      shuffledCombinations = shuffledCombinations.concat(shuffleArray(combinationDishes));
     }
 
-    // Generate 3 price-based questions
-    for (let dish of shuffledForPrice) {
-      if (priceQuestions.length < 3) {
-        let correctAnswer: string = `$${dish.price.toFixed(2)}`;
-        let incorrectOptions: string[] = [];
+    // ✅ Description-Based Questions (Shows only text, asks for item name)
+    const descriptionQuestions = shuffledCombinations.slice(0, 3).map((dish) => ({
+      question: dish.description,
+      correctAnswer: dish.item,
+      options: shuffleArray(
+        combinationDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        if (dish.wrongPrices) {
-          incorrectOptions = shuffleArray(
-            dish.wrongPrices.map((price) => `$${price.toFixed(2)}`)
-          ).slice(0, 3);
-        } else {
-          incorrectOptions = shuffleArray(
-            combinationDishes
+    // ✅ Price-Based Questions (Shows item name + image, asks for price)
+    const priceQuestions = shuffledCombinations.slice(3, 5).map((dish) => ({
+      question: `How much does "${dish.item}" cost?`,
+      correctAnswer: `$${dish.price.toFixed(2)}`,
+      img: dish.img,
+      options: shuffleArray(
+        dish.wrongPrices
+          ? dish.wrongPrices.map((price) => `$${price.toFixed(2)}`).slice(0, 3).concat(`$${dish.price.toFixed(2)}`)
+          : combinationDishes
               .filter((d) => d.item !== dish.item)
               .map((d) => `$${d.price.toFixed(2)}`)
-          ).slice(0, 3);
-        }
+              .slice(0, 3)
+              .concat(`$${dish.price.toFixed(2)}`)
+      ),
+    }));
 
-        priceQuestions.push({
-          question: `What is the price of "${dish.item}"?`,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
+    // ✅ Image-Based Questions (Shows only image, asks "What is this dish?")
+    const imageQuestions = shuffledCombinations.slice(5, 8).map((dish) => ({
+      question: "What is this dish?",
+      correctAnswer: dish.item,
+      img: dish.img,
+      options: shuffleArray(
+        combinationDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        if (priceQuestions.length === 3) break;
-      }
-    }
-
-    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions]);
+    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions, ...imageQuestions]).slice(0, 8);
 
     setQuizQuestions(finalQuestions);
     setQuizCompleted(false);
@@ -102,17 +98,28 @@ export function CombinationsQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center mt-20">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price")
-              ? "How Much Does It Cost?"
-              : "Guess the Combination Dish"}
+            {quizQuestions[currentQuestionIndex]?.img
+              ? quizQuestions[currentQuestionIndex]?.question.includes("cost")
+                ? "How Much Does It Cost?"
+                : "What is this dish?"
+              : "Identify the Combination Dish"}
           </h2>
+
+          {/* ✅ Show Image ONLY for Price & Image-Based Questions */}
+          {quizQuestions[currentQuestionIndex]?.img && (
+            <img
+              src={quizQuestions[currentQuestionIndex].img}
+              alt="Dish"
+              className="mb-4 w-full max-w-xs mx-auto rounded-lg shadow-md"
+            />
+          )}
+
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
 
-          {/* ✅ Responsive Answer Layout (List on Mobile, Grid on Larger Screens) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
@@ -135,9 +142,7 @@ export function CombinationsQuiz() {
       ) : (
         <div>
           <h2 className="text-3xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
-          <p className="text-2xl mb-6">
-            Your Score: {score} / {quizQuestions.length}
-          </p>
+          <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
           <button
             onClick={generateQuiz}
             className="px-6 py-4 bg-blue-500 rounded-lg text-white text-xl font-semibold hover:bg-blue-700"

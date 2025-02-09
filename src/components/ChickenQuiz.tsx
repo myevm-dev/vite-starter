@@ -5,6 +5,7 @@ interface QuizQuestion {
   question: string;
   correctAnswer: string;
   options: string[];
+  img?: string;
 }
 
 export function ChickenQuiz() {
@@ -23,54 +24,56 @@ export function ChickenQuiz() {
   };
 
   const generateQuiz = () => {
-    const shuffledChicken = shuffleArray(chickenDishes);
+    let shuffledChicken: ChickenDish[] = shuffleArray(chickenDishes);
 
-    let descriptionQuestions: QuizQuestion[] = [];
-    let priceQuestions: QuizQuestion[] = [];
-
-    // Generate 5 description-based questions
-    for (let dish of shuffledChicken) {
-      if (descriptionQuestions.length < 5) {
-        const correctAnswer = dish.item;
-        const incorrectOptions = shuffleArray(
-          shuffledChicken
-            .filter((d) => d.item !== correctAnswer)
-            .map((d) => d.item)
-        ).slice(0, 3);
-
-        descriptionQuestions.push({
-          question: dish.description,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
-
-        if (descriptionQuestions.length === 5) break;
-      }
+    while (shuffledChicken.length < 8) {
+      shuffledChicken = shuffledChicken.concat(shuffleArray(chickenDishes));
     }
 
-    // Generate 3 price-based questions
-    for (let dish of shuffledChicken) {
-      if (priceQuestions.length < 3) {
-        let correctAnswer: string = `$${dish.price.toFixed(2)}`;
-        let incorrectOptions: string[] = [];
+    // ✅ Description-Based Questions (Shows only text, asks for item name)
+    const descriptionQuestions = shuffledChicken.slice(0, 3).map((dish) => ({
+      question: dish.description,
+      correctAnswer: dish.item,
+      options: shuffleArray(
+        chickenDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        incorrectOptions = shuffleArray(
-          shuffledChicken
-            .filter((d) => d.item !== dish.item)
-            .map((d) => `$${d.price.toFixed(2)}`)
-        ).slice(0, 3);
+    // ✅ Price-Based Questions (Shows item name + image, asks for price)
+    const priceQuestions = shuffledChicken.slice(3, 5).map((dish) => ({
+      question: `How much does "${dish.item}" cost?`,
+      correctAnswer: `$${dish.price.toFixed(2)}`,
+      img: dish.img,
+      options: shuffleArray(
+        dish.wrongPrices
+          ? dish.wrongPrices.map((price) => `$${price.toFixed(2)}`).slice(0, 3).concat(`$${dish.price.toFixed(2)}`)
+          : chickenDishes
+              .filter((d) => d.item !== dish.item)
+              .map((d) => `$${d.price.toFixed(2)}`)
+              .slice(0, 3)
+              .concat(`$${dish.price.toFixed(2)}`)
+      ),
+    }));
 
-        priceQuestions.push({
-          question: `What is the price of "${dish.item}"?`,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
+    // ✅ Image-Based Questions (Shows only image, asks "What is this dish?")
+    const imageQuestions = shuffledChicken.slice(5, 8).map((dish) => ({
+      question: "What is this dish?",
+      correctAnswer: dish.item,
+      img: dish.img,
+      options: shuffleArray(
+        chickenDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        if (priceQuestions.length === 3) break;
-      }
-    }
-
-    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions]);
+    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions, ...imageQuestions]).slice(0, 8);
 
     setQuizQuestions(finalQuestions);
     setQuizCompleted(false);
@@ -95,15 +98,28 @@ export function ChickenQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center mt-20">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Chicken Dish"}
+            {quizQuestions[currentQuestionIndex]?.img
+              ? quizQuestions[currentQuestionIndex]?.question.includes("cost")
+                ? "How Much Does It Cost?"
+                : "What is this dish?"
+              : "Guess the Chicken Dish"}
           </h2>
+
+          {/* ✅ Show Image ONLY for Price & Image-Based Questions */}
+          {quizQuestions[currentQuestionIndex]?.img && (
+            <img
+              src={quizQuestions[currentQuestionIndex].img}
+              alt="Dish"
+              className="mb-4 w-full max-w-xs mx-auto rounded-lg shadow-md"
+            />
+          )}
+
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
 
-          {/* ✅ Responsive Answer Layout (List on Mobile, Grid on Larger Screens) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button

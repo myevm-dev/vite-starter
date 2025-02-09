@@ -40,7 +40,7 @@ export interface SteakRibsDish {
         calories: "890 cal",
         price: 20.99,
         includesSides: true,
-        img: "/public/14 oz. Ribeye.jpg",
+        img: "/public/chargrill-14oz-ribeye-590x365.jpg",
         wrongPrices: [18.99, 21.49, 22.79],
         upsells: [],
         orderqs: []

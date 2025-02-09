@@ -5,6 +5,7 @@ interface QuizQuestion {
   question: string;
   correctAnswer: string;
   options: string[];
+  img?: string;
 }
 
 export function ComfortFoodQuiz() {
@@ -12,7 +13,7 @@ export function ComfortFoodQuiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   useEffect(() => {
     generateQuiz();
@@ -23,61 +24,57 @@ export function ComfortFoodQuiz() {
   };
 
   const generateQuiz = () => {
-    const shuffledComfortFood: ComfortFood[] = shuffleArray(comfortFoodDishes);
-    const shuffledForPrice: ComfortFood[] = shuffleArray(comfortFoodDishes);
+    let shuffledComfortFood: ComfortFood[] = shuffleArray(comfortFoodDishes);
 
-    let descriptionQuestions: QuizQuestion[] = [];
-    let priceQuestions: QuizQuestion[] = [];
-
-    // Generate 5 description-based questions
-    for (let dish of shuffledComfortFood) {
-      if (descriptionQuestions.length < 5) {
-        const correctAnswer = dish.item;
-        const incorrectOptions = shuffleArray(
-          comfortFoodDishes
-            .filter((d) => d.item !== correctAnswer)
-            .map((d) => d.item)
-        ).slice(0, 3);
-
-        descriptionQuestions.push({
-          question: dish.description,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
-
-        if (descriptionQuestions.length === 5) break;
-      }
+    while (shuffledComfortFood.length < 8) {
+      shuffledComfortFood = shuffledComfortFood.concat(shuffleArray(comfortFoodDishes));
     }
 
-    // Generate 3 price-based questions
-    for (let dish of shuffledForPrice) {
-      if (priceQuestions.length < 3) {
-        let correctAnswer: string = `$${dish.price.toFixed(2)}`;
-        let incorrectOptions: string[] = [];
+    // ✅ Description-Based Questions (Shows only text, asks for item name)
+    const descriptionQuestions = shuffledComfortFood.slice(0, 3).map((dish) => ({
+      question: dish.description,
+      correctAnswer: dish.item,
+      img: undefined, // No image for these questions
+      options: shuffleArray(
+        comfortFoodDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        if (dish.wrongPrices) {
-          incorrectOptions = shuffleArray(
-            dish.wrongPrices.map((price) => `$${price.toFixed(2)}`)
-          ).slice(0, 3);
-        } else {
-          incorrectOptions = shuffleArray(
-            comfortFoodDishes
+    // ✅ Price-Based Questions (Shows item name + image, asks for price)
+    const priceQuestions = shuffledComfortFood.slice(3, 5).map((dish) => ({
+      question: `How much does "${dish.item}" cost?`,
+      correctAnswer: `$${dish.price.toFixed(2)}`,
+      img: dish.img, // Show image for price questions
+      options: shuffleArray(
+        dish.wrongPrices
+          ? dish.wrongPrices.map((price) => `$${price.toFixed(2)}`).slice(0, 3).concat(`$${dish.price.toFixed(2)}`)
+          : comfortFoodDishes
               .filter((d) => d.item !== dish.item)
               .map((d) => `$${d.price.toFixed(2)}`)
-          ).slice(0, 3);
-        }
+              .slice(0, 3)
+              .concat(`$${dish.price.toFixed(2)}`)
+      ),
+    }));
 
-        priceQuestions.push({
-          question: `What is the price of "${dish.item}"?`,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        });
+    // ✅ Image-Based Questions (Shows only image, asks "What is this dish?")
+    const imageQuestions = shuffledComfortFood.slice(5, 8).map((dish) => ({
+      question: "What is this dish?",
+      correctAnswer: dish.item,
+      img: dish.img, // Show image for these questions
+      options: shuffleArray(
+        comfortFoodDishes
+          .filter((d) => d.item !== dish.item)
+          .map((d) => d.item)
+          .slice(0, 3)
+          .concat(dish.item)
+      ),
+    }));
 
-        if (priceQuestions.length === 3) break;
-      }
-    }
-
-    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions]);
+    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions, ...imageQuestions]).slice(0, 8);
 
     setQuizQuestions(finalQuestions);
     setQuizCompleted(false);
@@ -87,10 +84,13 @@ export function ComfortFoodQuiz() {
   };
 
   const handleAnswerClick = (answer: string) => {
+    if (selectedAnswer) return; // Prevent multiple selections
     setSelectedAnswer(answer);
+
     if (answer === quizQuestions[currentQuestionIndex].correctAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
+
     setTimeout(() => {
       if (currentQuestionIndex + 1 < quizQuestions.length) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -102,17 +102,28 @@ export function ComfortFoodQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#D0733F] scale-[1.1] sm:scale-[1.25] text-center mt-20">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#D0733F] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price")
-              ? "How Much Does It Cost?"
+            {quizQuestions[currentQuestionIndex]?.img
+              ? quizQuestions[currentQuestionIndex]?.question.includes("cost")
+                ? "How Much Does It Cost?"
+                : "What is this dish?"
               : "Guess the Comfort Food Dish"}
           </h2>
+
+          {/* ✅ Show Image ONLY for Price & Image-Based Questions */}
+          {quizQuestions[currentQuestionIndex]?.img && (
+            <img
+              src={quizQuestions[currentQuestionIndex].img}
+              alt="Dish"
+              className="mb-4 w-full max-w-xs mx-auto rounded-lg shadow-md"
+            />
+          )}
+
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
 
-          {/* ✅ Responsive Answer Layout (List on Mobile, Grid on Larger Screens) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
@@ -135,9 +146,7 @@ export function ComfortFoodQuiz() {
       ) : (
         <div>
           <h2 className="text-3xl font-bold mb-8 text-[#D0733F]">Quiz Completed!</h2>
-          <p className="text-2xl mb-6">
-            Your Score: {score} / {quizQuestions.length}
-          </p>
+          <p className="text-2xl mb-6">Your Score: {score} / {quizQuestions.length}</p>
           <button
             onClick={generateQuiz}
             className="px-6 py-4 bg-blue-500 rounded-lg text-white text-xl font-semibold hover:bg-blue-700"

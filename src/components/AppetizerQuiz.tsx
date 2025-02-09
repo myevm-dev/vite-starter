@@ -5,6 +5,7 @@ interface QuizQuestion {
   question: string;
   correctAnswer: string;
   options: string[];
+  img?: string;
 }
 
 export function AppetizerQuiz() {
@@ -18,48 +19,63 @@ export function AppetizerQuiz() {
     generateQuiz();
   }, []);
 
-  // Function to shuffle an array
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
-  // Generate 8 random questions
   const generateQuiz = () => {
-    const shuffledAppetizers: ShareableAppetizer[] = shuffleArray(shareableAppetizers);
+    let shuffledAppetizers: ShareableAppetizer[] = shuffleArray(shareableAppetizers);
 
-    const selectedQuestions = shuffledAppetizers.slice(0, 8).map((appetizer, index) => {
-      const isPriceQuestion = index % 2 === 1; // 50% price questions
+    while (shuffledAppetizers.length < 8) {
+      shuffledAppetizers = shuffledAppetizers.concat(shuffleArray(shareableAppetizers));
+    }
 
-      if (isPriceQuestion) {
-        const correctAnswer = `$${appetizer.price.toFixed(2)}`;
-        const incorrectOptions = shuffleArray(
-          shareableAppetizers
-            .filter((a) => a.item !== appetizer.item)
-            .map((a) => `$${a.price.toFixed(2)}`)
-        ).slice(0, 3);
+    // ✅ Description-Based Questions (Shows only text, asks for item name)
+    const descriptionQuestions = shuffledAppetizers.slice(0, 3).map((appetizer) => ({
+      question: appetizer.description,
+      correctAnswer: appetizer.item,
+      options: shuffleArray(
+        shareableAppetizers
+          .filter((a) => a.item !== appetizer.item)
+          .map((a) => a.item)
+          .slice(0, 3)
+          .concat(appetizer.item)
+      ),
+    }));
 
-        return {
-          question: `What is the price of "${appetizer.item}"?`,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        };
-      } else {
-        const correctAnswer = appetizer.item;
-        const incorrectOptions = shuffleArray(
-          shareableAppetizers
-            .filter((a) => a.item !== correctAnswer)
-            .map((a) => a.item)
-        ).slice(0, 3);
+    // ✅ Price-Based Questions (Shows item name + image, asks for price)
+    const priceQuestions = shuffledAppetizers.slice(3, 5).map((appetizer) => ({
+      question: `How much does "${appetizer.item}" cost?`,
+      correctAnswer: `$${appetizer.price.toFixed(2)}`,
+      img: appetizer.img,
+      options: shuffleArray(
+        appetizer.price
+          ? shareableAppetizers
+              .filter((a) => a.item !== appetizer.item)
+              .map((a) => `$${a.price.toFixed(2)}`)
+              .slice(0, 3)
+              .concat(`$${appetizer.price.toFixed(2)}`)
+          : [`$${appetizer.price.toFixed(2)}`]
+      ),
+    }));
 
-        return {
-          question: appetizer.description,
-          correctAnswer,
-          options: shuffleArray([...incorrectOptions, correctAnswer]),
-        };
-      }
-    });
+    // ✅ Image-Based Questions (Shows only image, asks "What is this dish?")
+    const imageQuestions = shuffledAppetizers.slice(5, 8).map((appetizer) => ({
+      question: "What is this dish?",
+      correctAnswer: appetizer.item,
+      img: appetizer.img,
+      options: shuffleArray(
+        shareableAppetizers
+          .filter((a) => a.item !== appetizer.item)
+          .map((a) => a.item)
+          .slice(0, 3)
+          .concat(appetizer.item)
+      ),
+    }));
 
-    setQuizQuestions(selectedQuestions);
+    const finalQuestions = shuffleArray([...descriptionQuestions, ...priceQuestions, ...imageQuestions]).slice(0, 8);
+
+    setQuizQuestions(finalQuestions);
     setQuizCompleted(false);
     setScore(0);
     setCurrentQuestionIndex(0);
@@ -82,15 +98,28 @@ export function AppetizerQuiz() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#c16436] scale-[1.1] sm:scale-[1.25] text-center">
+    <div className="w-full max-w-3xl mx-auto p-7 bg-zinc-900 text-white rounded-lg shadow-lg border-4 border-[#c16436] scale-[1.1] sm:scale-[1.25] text-center mt-20">
       {!quizCompleted ? (
         <>
           <h2 className="text-3xl font-bold text-[#c16436] mb-8">
-            {quizQuestions[currentQuestionIndex]?.question.includes("price") ? "How Much Does It Cost?" : "Guess the Appetizer"}
+            {quizQuestions[currentQuestionIndex]?.img
+              ? quizQuestions[currentQuestionIndex]?.question.includes("cost")
+                ? "How Much Does It Cost?"
+                : "What is this dish?"
+              : "Guess the Appetizer"}
           </h2>
+
+          {/* ✅ Show Image ONLY for Price & Image-Based Questions */}
+          {quizQuestions[currentQuestionIndex]?.img && (
+            <img
+              src={quizQuestions[currentQuestionIndex].img}
+              alt="Dish"
+              className="mb-4 w-full max-w-xs mx-auto rounded-lg shadow-md"
+            />
+          )}
+
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
 
-          {/* ✅ Responsive Answer Layout (Grid on Large Screens, List on Mobile) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {quizQuestions[currentQuestionIndex]?.options.map((option) => (
               <button
