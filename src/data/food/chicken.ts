@@ -18,7 +18,7 @@ export const chickenDishes: ChickenDish[] = [
       calories: "1550 cal",
       price: 13.79,
       includesSides: false,
-      img: "/public/chicken-alfredo/jpg",
+      img: "/public/chicken-alfredo.jpg",
       wrongPrices: [11.99, 12.49, 14.99],
       upsells: [],
       orderqs: []
