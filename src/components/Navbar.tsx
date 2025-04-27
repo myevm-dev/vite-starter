@@ -7,10 +7,13 @@ export function Navbar() {
          style={{ borderColor: "#ea353d" }}>
       <nav className="w-full p-3 flex items-center justify-between">
         
-        {/* Left - Menu Quiz Title */}
-        <h1 className="text-xl font-bold" style={{ color: "#ea353d" }}>
-          Menu Quiz
-        </h1>
+        {/* Left - Logo + Title */}
+        <div className="flex items-center space-x-2">
+          <img src="/logo.png" alt="Logo" className="w-8 h-8" />
+          <h1 className="text-xl font-bold" style={{ color: "#ea353d" }}>
+            Menu Quiz
+          </h1>
+        </div>
 
         {/* Right - Connect Button */}
         <div className="scale-75">
