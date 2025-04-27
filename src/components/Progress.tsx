@@ -16,15 +16,7 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const choices: Choice[] = [
-    { id: "a", text: "Appetizers", category: "Appetizers" },
-    { id: "b", text: "Salads & Soup", category: "Salads & Soup" },
-    { id: "c", text: "Chicken", category: "Chicken" },
-    { id: "d", text: "Comfort Food", category: "Comfort Food" },
-    { id: "e", text: "Seafood", category: "Seafood" },
-    { id: "f", text: "Combinations", category: "Combinations" },
-    { id: "g", text: "Steaks & Ribs", category: "Steaks & Ribs" },
-    { id: "h", text: "Sandwiches & Burgers", category: "Sandwiches & Burgers" },
-    { id: "i", text: "Kids", category: "Kids" },
+    { id: "sushi", text: "Sushi Rolls", category: "Sushi Rolls" },
   ];
 
   const handleSelect = (id: string, category: string | null) => {
@@ -40,7 +32,12 @@ export function Progress({ onProgressUpdate, onSelectCategory }: ProgressProps) 
         {/* Dropdown Toggle Button */}
         <button
           onClick={() => setDropdownOpen((prev) => !prev)}
-          className="w-full py-3 text-lg font-semibold bg-[#c16436] hover:bg-[#a8552f] text-white rounded-lg transition"
+          className="w-full py-3 text-lg font-semibold"
+          style={{
+            backgroundColor: "#ea353d",
+            borderRadius: "0.5rem",
+            transition: "background 0.3s",
+          }}
         >
           {selected ? choices.find((c) => c.id === selected)?.text : "Select a Category"}
         </button>

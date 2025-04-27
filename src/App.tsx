@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { Progress } from "./components/Progress";
-import { AppetizerQuiz } from "./components/AppetizerQuiz";
-import { SaladSoupQuiz } from "./components/SaladSoupPriceQuiz";
-import { ChickenQuiz } from "./components/ChickenQuiz";
-import { ComfortFoodQuiz } from "./components/ComfortFoodQuiz";
-import { SeafoodQuiz } from "./components/SeafoodQuiz";
-import { CombinationsQuiz } from "./components/CombinationsQuiz";
-import { SteakAndRibsQuiz } from "./components/SteakAndRibsQuiz";
-import { SandwichesAndBurgersQuiz } from "./components/SandwichesAndBurgersQuiz";
-import { KidsQuiz } from "./components/KidsQuiz";
+import { SushiQuiz } from "./components/SushiQuiz";
+
+
 
 export function App() {
   const [progress, setProgress] = useState<number>(0);
@@ -23,27 +17,7 @@ export function App() {
       <Progress onProgressUpdate={setProgress} onSelectCategory={setSelectedCategory} />
 
       <div className="py-10 w-full flex flex-col items-center">
-        {selectedCategory === "Appetizers" ? (
-          <AppetizerQuiz />
-        ) : selectedCategory === "Salads & Soup" ? (
-          <SaladSoupQuiz />
-        ) : selectedCategory === "Chicken" ? (
-          <ChickenQuiz />
-        ) : selectedCategory === "Comfort Food" ? (
-          <ComfortFoodQuiz />
-        ) : selectedCategory === "Seafood" ? (
-          <SeafoodQuiz />
-        ) : selectedCategory === "Combinations" ? (
-          <CombinationsQuiz />
-        ) : selectedCategory === "Steaks & Ribs" ? (
-          <SteakAndRibsQuiz />
-        ) : selectedCategory === "Sandwiches & Burgers" ? (
-          <SandwichesAndBurgersQuiz />
-        ) : selectedCategory === "Kids" ? (
-          <KidsQuiz />
-        ) : (
-          <Header />
-        )}
+        <SushiQuiz />
       </div>
     </main>
   );
