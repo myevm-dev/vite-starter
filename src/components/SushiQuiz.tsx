@@ -49,13 +49,14 @@ export function SushiQuiz() {
     const ingredientQuestions: QuizQuestion[] = shuffledSushi.slice(0, 5).map((roll: SushiRoll) => ({
       question: `What are the ingredients in the "${roll.name}"?`,
       correctAnswer: roll.ingredients,
-      options: shuffleArray(
-        sushiRolls
-          .filter((r: SushiRoll) => r.name !== roll.name)
-          .map((r: SushiRoll) => r.ingredients)
-          .slice(0, 3)
-          .concat(roll.ingredients)
-      ),
+      options: shuffleArray([
+        roll.ingredients,
+        ...shuffleArray(
+          sushiRolls
+            .filter((r: SushiRoll) => r.name !== roll.name)
+            .map((r: SushiRoll) => r.ingredients)
+        ).slice(0, 3)
+      ]),
     }));
 
     const sauceQuestions: QuizQuestion[] = shuffledSushi.slice(5, 10).map((roll: SushiRoll) => {
@@ -83,7 +84,7 @@ export function SushiQuiz() {
       return {
         question: `What sauces come with the "${roll.name}"?`,
         correctAnswer: correctSauce,
-        options: [...sauceChoices], // keep fixed order
+        options: [...sauceChoices],
       };
     });
 
