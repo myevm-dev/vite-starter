@@ -20,8 +20,8 @@ export function Navbar() {
           <ConnectButton
             client={client}
             appMetadata={{
-              name: "Example app",
-              url: "https://example.com",
+              name: "Menu Quiz",
+              url: "https://menuquiz.vercel.app",
             }}
           />
         </div>
