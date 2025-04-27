@@ -7,7 +7,7 @@ export const sushiRolls = [
   },
   {
     name: "Albacore Roll",
-    ingredients: "Albacore and cucumber, wrapped in seaweed",
+    ingredients: "Albacore and cucumber wrapped in seaweed",
     sauces: "",
     image: "Albacore Roll.png"
   },
@@ -19,55 +19,55 @@ export const sushiRolls = [
   },
   {
     name: "Caterpillar Roll",
-    ingredients: "Eel roll topped with avocado",
+    ingredients: "Eel roll topped with avocado, eel sauce",
     sauces: "Eel sauce",
     image: "Caterpillar Roll.png"
   },
   {
     name: "Crunch Shrimp Roll",
-    ingredients: "Shrimp tempura, crab stick, cucumber",
+    ingredients: "Shrimp tempura, crab stick, cucumber, crunch, eel sauce",
     sauces: "Eel sauce",
     image: "Crunch Shrimp Roll.png"
   },
   {
     name: "Crazy Roll",
-    ingredients: "Fried salmon skin, cucumber, crab stick, avocado",
+    ingredients: "Fried salmon skin, cucumber, crab stick, avocado wrapped in seaweed, eel sauce",
     sauces: "Eel sauce",
     image: "Crazy Roll.png"
   },
   {
     name: "Golden California Roll",
-    ingredients: "California roll",
+    ingredients: "Deep-fried California roll, eel sauce",
     sauces: "Eel sauce",
     image: "Golden California Roll.png"
   },
   {
     name: "Eel Roll",
-    ingredients: "Eel and avocado wrapped in seaweed",
+    ingredients: "Eel and avocado wrapped in seaweed, eel sauce",
     sauces: "Eel sauce",
     image: "Eel Roll.png"
   },
   {
     name: "Hawaiian Roll",
-    ingredients: "California roll topped with fresh tuna, red snapper, masago, and scallions",
+    ingredients: "California roll topped with fresh tuna, red snapper, masago, scallions, ponzu sauce",
     sauces: "Ponzu sauce",
     image: "Hawaiian Roll.png"
   },
   {
     name: "Las Vegas Roll",
-    ingredients: "Fresh salmon, avocado, cream cheese",
+    ingredients: "Fresh salmon, avocado, cream cheese wrapped in seaweed and deep-fried, eel sauce",
     sauces: "Eel sauce",
     image: "Las Vegas Roll.png"
   },
   {
     name: "Mexican Orgasm Roll",
-    ingredients: "Shrimp tempura and cucumber, topped with crab meat",
+    ingredients: "Shrimp tempura and cucumber topped with crab meat, eel sauce, spicy mayo, sriracha",
     sauces: "Eel sauce, spicy mayo, sriracha",
     image: "Mexican Orgasm Roll.png"
   },
   {
     name: "Osaka Roll",
-    ingredients: "Spicy tuna, crab stick, and cream cheese",
+    ingredients: "Spicy tuna, crab stick, cream cheese wrapped in seaweed and deep-fried, spicy mayo, eel sauce",
     sauces: "Spicy mayo, eel sauce",
     image: "Osaka Roll.png"
   },
@@ -97,37 +97,37 @@ export const sushiRolls = [
   },
   {
     name: "Sunshine Roll",
-    ingredients: "Fresh tuna, salmon, red snapper, and sushi shrimp with avocado",
+    ingredients: "Fresh tuna, salmon, red snapper, sushi shrimp, avocado, colorful crunch",
     sauces: "",
     image: "Sunshine Roll.png"
   },
   {
     name: "Samurai Roll",
-    ingredients: "Baked eel, fresh shrimp, avocado, cream cheese",
+    ingredients: "Baked eel, fresh shrimp, avocado, cream cheese, deep-fried, eel sauce",
     sauces: "Eel sauce",
     image: "Samurai Roll.png"
   },
   {
     name: "Salmon Lover Roll",
-    ingredients: "Spicy salmon roll topped with fresh salmon, scallions, avocado, and masago",
+    ingredients: "Spicy salmon roll topped with fresh salmon, scallions, avocado, masago",
     sauces: "",
     image: "Salmon Lover Roll.png"
   },
   {
     name: "Teriyaki Chicken Roll",
-    ingredients: "Teriyaki chicken, cucumber, crab stick, and avocado",
+    ingredients: "Teriyaki chicken, cucumber, crab stick, avocado wrapped in seaweed, eel sauce",
     sauces: "Eel sauce",
     image: "Teriyaki Chicken Roll.png"
   },
   {
     name: "Tiger Roll",
-    ingredients: "Baked eel and avocado, topped with fresh shrimp and additional avocado",
+    ingredients: "Baked eel, avocado topped with fresh shrimp and additional avocado, eel sauce",
     sauces: "Eel sauce",
     image: "Tiger Roll.png"
   },
   {
     name: "Volcano Roll",
-    ingredients: "California roll topped with baked scallops",
+    ingredients: "California roll topped with baked scallops, masago, scallions, volcano sauce",
     sauces: "Volcano sauce",
     image: "Volcano Roll.png"
   },
@@ -139,19 +139,19 @@ export const sushiRolls = [
   },
   {
     name: "Beauty & The Beast Roll",
-    ingredients: "Spicy tuna and cucumber topped with fresh tuna and baked eel",
+    ingredients: "Spicy tuna and cucumber topped with fresh tuna and baked eel, eel sauce",
     sauces: "Eel sauce",
     image: "Beauty & The Beast Roll.png"
   },
   {
     name: "Crunch Roll",
-    ingredients: "California roll topped with crispy crunch",
+    ingredients: "California roll topped with crispy crunch, eel sauce",
     sauces: "Eel sauce",
     image: "Crunch Roll.png"
   },
   {
     name: "Chef’s Special Roll",
-    ingredients: "Spicy crab, jalapeño, cream cheese, and avocado",
+    ingredients: "Spicy crab, jalapeño, cream cheese, avocado wrapped in seaweed and deep-fried, eel sauce, spicy mayo, sriracha",
     sauces: "Eel sauce, spicy mayo, sriracha",
     image: "Chef’s Special Roll.png"
   },
@@ -163,31 +163,31 @@ export const sushiRolls = [
   },
   {
     name: "Dragon Roll",
-    ingredients: "California roll topped with baked eel",
+    ingredients: "California roll topped with baked eel, eel sauce",
     sauces: "Eel sauce",
     image: "Dragon Roll.png"
   },
   {
     name: "Geisha Roll",
-    ingredients: "Eel, cream cheese, and avocado, topped with tuna and additional avocado",
+    ingredients: "Eel, cream cheese, avocado topped with tuna and additional avocado, eel sauce",
     sauces: "Eel sauce",
     image: "Geisha Roll.png"
   },
   {
     name: "Hiroshima Roll",
-    ingredients: "Spicy salmon, crab stick, and cream cheese",
+    ingredients: "Spicy salmon, crab stick, cream cheese wrapped in seaweed and deep-fried",
     sauces: "",
     image: "Hiroshima Roll.png"
   },
   {
     name: "Lobster Tail Roll",
-    ingredients: "California roll topped with baked lobster tail",
+    ingredients: "California roll topped with baked lobster tail, masago, scallions, lobster sauce",
     sauces: "Lobster sauce",
     image: "Lobster Tail Roll.png"
   },
   {
     name: "Lion King Roll",
-    ingredients: "Spicy tuna and shrimp tempura, topped with spicy crab",
+    ingredients: "Spicy tuna, shrimp tempura topped with spicy crab, light crunch, eel sauce, spicy mayo",
     sauces: "Eel sauce, spicy mayo",
     image: "Lion King Roll.png"
   },
@@ -199,13 +199,13 @@ export const sushiRolls = [
   },
   {
     name: "Philadelphia Roll",
-    ingredients: "Smoked salmon and avocado, with cream cheese",
+    ingredients: "Smoked salmon, avocado, cream cheese (or cucumber upon request)",
     sauces: "",
     image: "Philadelphia Roll.png"
   },
   {
     name: "Rising Sun Roll",
-    ingredients: "BBQ eel, avocado, and crab meat",
+    ingredients: "BBQ eel, avocado, crab meat, eel sauce",
     sauces: "Eel sauce",
     image: "Rising Sun Roll.png"
   },
@@ -223,7 +223,7 @@ export const sushiRolls = [
   },
   {
     name: "Spider Roll",
-    ingredients: "Fried soft shell crab, avocado, cucumber, and crab meat",
+    ingredients: "Fried soft shell crab, avocado, cucumber, crab meat topped with masago",
     sauces: "",
     image: "Spider Roll.png"
   },
@@ -235,7 +235,7 @@ export const sushiRolls = [
   },
   {
     name: "Sunny’s Special Roll",
-    ingredients: "Spicy crab and shrimp tempura",
+    ingredients: "Spicy crab, shrimp tempura topped with fresh salmon, jalapeño, eel sauce, spicy mayo, sriracha",
     sauces: "Eel sauce, spicy mayo, sriracha",
     image: "Sunny’s Special Roll.png"
   },
@@ -247,7 +247,7 @@ export const sushiRolls = [
   },
   {
     name: "Tuna Lover Roll",
-    ingredients: "Fresh tuna and red snapper on top, with spicy tuna crunch",
+    ingredients: "Fresh tuna, red snapper on top with spicy tuna crunch, cucumber, masago, scallions, ponzu sauce",
     sauces: "Ponzu sauce",
     image: "Tuna Lover Roll.png"
   },
