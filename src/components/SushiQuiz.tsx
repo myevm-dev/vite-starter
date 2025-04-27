@@ -25,6 +25,16 @@ export function SushiQuiz() {
     generateQuiz();
   }, []);
 
+  const sauceChoices = [
+    "None",
+    "Eel Sauce",
+    "Eel Sauce and Spicy Mayo",
+    "Eel Sauce, Spicy Mayo, and Sriracha",
+    "Lobster Sauce",
+    "Volcano Sauce",
+    "Ponzu Sauce",
+  ];
+
   const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
   };
@@ -48,27 +58,22 @@ export function SushiQuiz() {
       ),
     }));
 
-    const sauceChoices = [
-      "None",
-      "Eel Sauce",
-      "Eel Sauce and Spicy Mayo",
-      "Eel Sauce, Spicy Mayo, and Sriracha",
-      "Ponzu Sauce",
-      "Volcano Sauce",
-      "Lobster Sauce",
-    ];
-    
-
     const sauceQuestions: QuizQuestion[] = shuffledSushi.slice(5, 10).map((roll: SushiRoll) => {
       let correctSauce = roll.sauces.trim() || "None";
 
-      // Normalize the sauce name to match fixed options
+      // Normalize sauce names
       if (correctSauce.toLowerCase() === "eel sauce") {
         correctSauce = "Eel Sauce";
       } else if (correctSauce.toLowerCase().includes("spicy mayo") && correctSauce.toLowerCase().includes("sriracha")) {
         correctSauce = "Eel Sauce, Spicy Mayo, and Sriracha";
       } else if (correctSauce.toLowerCase().includes("spicy mayo")) {
         correctSauce = "Eel Sauce and Spicy Mayo";
+      } else if (correctSauce.toLowerCase().includes("ponzu")) {
+        correctSauce = "Ponzu Sauce";
+      } else if (correctSauce.toLowerCase().includes("volcano")) {
+        correctSauce = "Volcano Sauce";
+      } else if (correctSauce.toLowerCase().includes("lobster")) {
+        correctSauce = "Lobster Sauce";
       } else if (correctSauce === "" || correctSauce.toLowerCase() === "none") {
         correctSauce = "None";
       } else {
@@ -78,7 +83,7 @@ export function SushiQuiz() {
       return {
         question: `What sauces come with the "${roll.name}"?`,
         correctAnswer: correctSauce,
-        options: shuffleArray([...sauceChoices]),
+        options: [...sauceChoices], // keep fixed order
       };
     });
 
@@ -120,27 +125,71 @@ export function SushiQuiz() {
 
           <p className="text-xl mb-8">{quizQuestions[currentQuestionIndex]?.question}</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-            {quizQuestions[currentQuestionIndex]?.options.map((option) => (
-              <button
-                key={option}
-                onClick={() => handleAnswerClick(option)}
-                className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition w-full ${
-                  selectedAnswer
-                    ? option === quizQuestions[currentQuestionIndex].correctAnswer
-                      ? "bg-green-600 border-green-400"
-                      : "bg-red-600 border-red-400"
-                    : "bg-zinc-800 hover:bg-zinc-700"
-                }`}
-                style={{
-                  border: "2px solid #ea353d",
-                }}
-                disabled={!!selectedAnswer}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
+          {quizQuestions[currentQuestionIndex]?.options.length === 7 ? (
+            // Sauce questions layout (split 4+3)
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              <div className="flex flex-col gap-4">
+                {quizQuestions[currentQuestionIndex]?.options.slice(0, 4).map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleAnswerClick(option)}
+                    className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition w-full ${
+                      selectedAnswer
+                        ? option === quizQuestions[currentQuestionIndex].correctAnswer
+                          ? "bg-green-600 border-green-400"
+                          : "bg-red-600 border-red-400"
+                        : "bg-zinc-800 hover:bg-zinc-700"
+                    }`}
+                    style={{ border: "2px solid #ea353d" }}
+                    disabled={!!selectedAnswer}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex flex-col gap-4">
+                {quizQuestions[currentQuestionIndex]?.options.slice(4).map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleAnswerClick(option)}
+                    className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition w-full ${
+                      selectedAnswer
+                        ? option === quizQuestions[currentQuestionIndex].correctAnswer
+                          ? "bg-green-600 border-green-400"
+                          : "bg-red-600 border-red-400"
+                        : "bg-zinc-800 hover:bg-zinc-700"
+                    }`}
+                    style={{ border: "2px solid #ea353d" }}
+                    disabled={!!selectedAnswer}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            // Ingredient questions layout (normal stacked)
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              {quizQuestions[currentQuestionIndex]?.options.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleAnswerClick(option)}
+                  className={`p-3 sm:p-2 text-lg font-semibold rounded-lg transition w-full ${
+                    selectedAnswer
+                      ? option === quizQuestions[currentQuestionIndex].correctAnswer
+                        ? "bg-green-600 border-green-400"
+                        : "bg-red-600 border-red-400"
+                      : "bg-zinc-800 hover:bg-zinc-700"
+                  }`}
+                  style={{ border: "2px solid #ea353d" }}
+                  disabled={!!selectedAnswer}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
         </>
       ) : (
         <div>
