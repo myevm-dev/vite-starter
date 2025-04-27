@@ -53,7 +53,11 @@ export function SushiQuiz() {
       "Eel Sauce",
       "Eel Sauce and Spicy Mayo",
       "Eel Sauce, Spicy Mayo, and Sriracha",
+      "Ponzu Sauce",
+      "Volcano Sauce",
+      "Lobster Sauce",
     ];
+    
 
     const sauceQuestions: QuizQuestion[] = shuffledSushi.slice(5, 10).map((roll: SushiRoll) => {
       let correctSauce = roll.sauces.trim() || "None";
